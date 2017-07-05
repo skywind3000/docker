@@ -1,0 +1,12 @@
+#! /bin/sh
+
+set -e
+set -x
+export DEBIAN_FRONTEND=noninteractive
+
+install -m 644 -o root -g root -p /tmp/build/etc/163.list /etc/apt/sources.list.d/163.list
+echo "" > /etc/apt/sources.list
+
+apt-get update
+apt-get upgrade -y --fix-missing --fix-broken
+
