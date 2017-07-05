@@ -9,6 +9,7 @@ sed -i -e 's@^session\s*required\s*pam_loginuid.so$@# session    required    pam
 sed -i -e 's@^session\s*required\s*pam_loginuid.so$@# session    required    pam_loginuid.so@' /etc/pam.d/login
 
 sed -i -e 's@^PermitRootLogin\s*without-password$@PermitRootLogin yes@' /etc/ssh/sshd_config
+sed -i -e 's@^#PermitRootLogin\s.*$@PermitRootLogin yes@' /etc/ssh/sshd_config 
 
 echo 'root:root' | chpasswd
 
