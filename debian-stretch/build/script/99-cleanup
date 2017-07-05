@@ -1,0 +1,13 @@
+#! /bin/sh
+
+set -e
+set -x
+export DEBIAN_FRONTEND=noninteractive
+
+##
+## apt
+##
+apt-get autoremove --purge -y
+apt-get clean
+
+
