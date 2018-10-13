@@ -1,0 +1,18 @@
+#! /bin/sh
+
+set -e
+set -x
+export DEBIAN_FRONTEND=noninteractive
+
+packages="apache2"
+
+## install packages
+apt-get install -y --no-install-recommends --auto-remove --purge ${packages}
+
+echo "ServerName www.example.com" >> /etc/apache2/conf-available/servername.conf
+/usr/sbin/a2enconf servername
+mkdir -p /var/run/apache2 2> /dev/null
+
+cp /tmp/build/init/run-apache2.sh /usr/local/bin/run-apache2.sh 
+chmod 755 /usr/local/bin/run-apache2.sh
+
