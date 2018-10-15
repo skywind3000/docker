@@ -11,6 +11,8 @@ echo "ServerName www.example.com" >> /etc/apache2/conf-available/servername.conf
 /usr/sbin/a2enconf servername
 /usr/sbin/a2enmod ssl
 
+# make-ssl-cert generate-default-snakeoil
+
 mkdir -p /var/run/apache2 2> /dev/null
 mkdir -p /etc/apache2/ssl 2> /dev/null
 cp /tmp/build/etc/apache2-ssl.key /etc/apache2/ssl
