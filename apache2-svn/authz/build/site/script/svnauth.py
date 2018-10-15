@@ -114,7 +114,10 @@ def AuthzMerge(jsoncfg):
 		if not filepath:
 			return -7
 		text = shell.svnlook_cat(repos, filepath)
-		authz.append(name, text)
+		if text is not None:
+			authz.append(name, text)
+		else:
+			print 'failed to read %s in %s'%(filepath, repos)
 	output = authz.generate()
 	if footer:
 		output += '\n# footer\n%s\n\n'%str(footer)

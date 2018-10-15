@@ -2,7 +2,7 @@
 	"out":"/var/lib/svn/conf/davsvn.authz",
 	"history":"/var/lib/svn/history",
 	"source": "/var/lib/svn/repos",
-	"admin": ["svnadmin", "skywind"],
-	"footer":"# footer\\n"
+	"admin": ["svnadmin"],
+	"footer":"# empty\n"
 }
 
