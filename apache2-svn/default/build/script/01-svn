@@ -5,7 +5,7 @@ set -x
 export DEBIAN_FRONTEND=noninteractive
 
 ## install packages
-packages="libapache2-mod-svn subversion python libapache2-mod-wsgi python-flask python-pip p7zip"
+packages="libapache2-mod-svn subversion python libapache2-mod-wsgi python-flask python-pip p7zip-full"
 apt-get install -y --no-install-recommends --auto-remove --purge $packages
 
 ## modify dav.load to suppress: dav_module is already loaded
