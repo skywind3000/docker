@@ -1,0 +1,12 @@
+#! /bin/sh
+set -e
+set -x
+export DEBIAN_FRONTEND=noninteractive
+
+## install packages
+packages=""
+# apt-get install -y --no-install-recommends --auto-remove --purge $packages
+
+## modify scripts
+FILE=/usr/local/bin/run-apache2-svn.sh
+sed -i '/exec bash/i\service cron restart > /dev/null' $FILE
