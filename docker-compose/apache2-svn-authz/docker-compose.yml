@@ -1,0 +1,14 @@
+version: "2"
+
+volumes:
+    svn-data:
+
+services:
+    svn-auth:
+        image: skywind3000/apache2-svn:authz
+        ports:
+            - "443:443"
+            - "442:442"
+        volumes:
+            - svn-data:/var/lib/svn
+    
