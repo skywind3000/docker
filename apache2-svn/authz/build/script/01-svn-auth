@@ -10,3 +10,8 @@ packages=""
 ## modify scripts
 FILE=/usr/local/bin/run-apache2-svn.sh
 sed -i '/exec bash/i\service cron restart > /dev/null' $FILE
+
+## install scripts
+cp -r /tmp/build/site /var/lib/site
+cat /var/lib/site/etc/svnauth.cron > /etc/cron.d/svnauth
+

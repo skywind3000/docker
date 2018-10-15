@@ -1,0 +1,1 @@
+*/5 * * * *     www-data        /usr/bin/python /var/lib/site/script/svnauth.py /var/lib/site/etc/svnauth.json
