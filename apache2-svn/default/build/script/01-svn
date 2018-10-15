@@ -31,6 +31,7 @@ cd /var/lib/svn/conf
 htpasswd -bc davsvn.passwd test test
 echo "[test:/]" > davsvn.authz
 echo "* = rw" >> davsvn.authz
+cd /var/lib/svn
 chown -R www-data:www-data *
 
 ## copy files
