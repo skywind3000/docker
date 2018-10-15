@@ -4,15 +4,27 @@ set -e
 set -x
 export DEBIAN_FRONTEND=noninteractive
 
-packages="apache2"
-
 ## install packages
-apt-get install -y --no-install-recommends --auto-remove --purge ${packages}
+apt-get install -y --no-install-recommends --auto-remove --purge apache2 openssl
 
 echo "ServerName www.example.com" >> /etc/apache2/conf-available/servername.conf
 /usr/sbin/a2enconf servername
+/usr/sbin/a2enmod ssl
+
 mkdir -p /var/run/apache2 2> /dev/null
 
+
+## install packages
+packages="libapache2-mod-php"
+packages="$packages php7.0 php7.0-gd php7.0-json php7.0-mbstring php7.0-mcrypt php7.0-xml php7.0-cli"
+packages="$packages php7.0-mysql php7.0-sqlite3 php7.0-odbc php7.0-zip php7.0-bcmath php7.0-curl"
+
+apt-get install -y --no-install-recommends --auto-remove --purge ${packages}
+
+
+# setup entry scrpit
 cp /tmp/build/init/run-apache2.sh /usr/local/bin/run-apache2.sh 
 chmod 755 /usr/local/bin/run-apache2.sh
+
+
 
