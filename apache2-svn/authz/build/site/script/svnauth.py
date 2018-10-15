@@ -126,7 +126,7 @@ def AuthzMerge(jsoncfg):
 		for source in sources:
 			name = source['name']
 			for admin in admins:
-				output += '[%s:/]\n%s = rw\n'%(name, admin)
+				output += '[%s:/authz]\n%s = rw\n'%(name, admin)
 			output += '\n'
 		output += '\n'
 	write = False
