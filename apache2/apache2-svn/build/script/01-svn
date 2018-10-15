@@ -14,11 +14,27 @@ sed -i '/LoadModule dav_module/a\<\/IfModule>' $FILE
 
 ## setup directories
 mkdir -p /var/lib/svn
-mkdir -p /var/lib/svn/{repos,conf,history}
+mkdir -p /var/lib/svn/repos
+mkdir -p /var/lib/svn/conf
+mkdir -p /var/lib/svn/history
 
 ## copy files
 rm -rf /etc/apache2/sites-enabled/*
 cp /tmp/build/etc/apache2-svn.conf /etc/apache2/sites-available/
 a2ensite apache2-svn
+
+## create test repository
+cd /var/lib/svn/repos
+svnadmin create test
+cd /var/lib/svn/conf
+htpasswd -bc davsvn.passwd test test
+echo "[test:/]" > davsvn.authz
+echo "* = rw" >> davsvn.authz
+chown www-data:www-data *
+
+## copy files
+cp /tmp/build/init/run-apache2-svn.sh /usr/local/bin/
+chmod 755 /usr/local/bin/run-apache2-svn.sh
+
 
 

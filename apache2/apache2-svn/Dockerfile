@@ -10,7 +10,7 @@ EXPOSE 22
 EXPOSE 80
 EXPOSE 443
 
-CMD ["/usr/local/bin/run-apache2.sh"]
+CMD ["/usr/local/bin/run-apache2-svn.sh"]
 
 
 
