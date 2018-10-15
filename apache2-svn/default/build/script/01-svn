@@ -18,7 +18,6 @@ mkdir -p /var/lib/svn
 mkdir -p /var/lib/svn/repos
 mkdir -p /var/lib/svn/conf
 mkdir -p /var/lib/svn/history
-mkdir -p /var/lib/svn/backup
 
 ## copy files
 rm -rf /etc/apache2/sites-enabled/*
