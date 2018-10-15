@@ -5,7 +5,8 @@ set -x
 export DEBIAN_FRONTEND=noninteractive
 
 ## install packages
-apt-get install -y --no-install-recommends --auto-remove --purge libapache2-mod-svn subversion
+packages="libapache2-mod-svn subversion python libapache2-mod-wsgi python-flask python-pip"
+apt-get install -y --no-install-recommends --auto-remove --purge $packages
 
 ## modify dav.load to suppress: dav_module is already loaded
 FILE=/etc/apache2/mods-available/dav.load
@@ -30,7 +31,8 @@ cd /var/lib/svn/conf
 htpasswd -bc davsvn.passwd test test
 echo "[test:/]" > davsvn.authz
 echo "* = rw" >> davsvn.authz
-chown www-data:www-data *
+cd /var/lib/svn
+chown -R www-data:www-data *
 
 ## copy files
 cp /tmp/build/init/run-apache2-svn.sh /usr/local/bin/
