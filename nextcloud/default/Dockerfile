@@ -17,6 +17,7 @@ VOLUME ["/var/www/nextcloud/config", "/var/www/nextcloud/data"]
 # and add a slash '/' after the text of 'overwrite.cli.url', finally execute:
 #     nextcloud-update.sh
 
+# memcached can be used at 127.0.0.1:11211 in the container
 
 CMD ["/usr/local/bin/run-apache2.sh"]
 
