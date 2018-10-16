@@ -22,4 +22,3 @@ chown -R www-data:www-data data
 
 rm -rf /tmp/nextcloud-*.tar.bz2
 
-
