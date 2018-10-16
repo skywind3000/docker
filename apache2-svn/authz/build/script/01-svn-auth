@@ -20,8 +20,8 @@ sed -i '/exec bash/i\service cron restart > /dev/null' $FILE
 
 ## install cron task
 FILE=/etc/cron.d/svnback
-echo '0 4 * * 1-6  www-data   /usr/bin/python /var/lib/site/script/backup.py inc $(cat /var/lib/svn/backup.txt)' > $FILE
-echo '0 4 * * 0    www-data   /usr/bin/python /var/lib/site/script/backup.py dump $(cat /var/lib/svn/backup.txt)' >> $FILE
+echo '30 2 * * 1-6  www-data   /usr/bin/python /var/lib/site/script/backup.py inc $(cat /var/lib/svn/backup.txt)' > $FILE
+echo '30 2 * * 0    www-data   /usr/bin/python /var/lib/site/script/backup.py dump $(cat /var/lib/svn/backup.txt)' >> $FILE
 
 ## install scripts
 cp -r /tmp/build/site /var/lib/site
