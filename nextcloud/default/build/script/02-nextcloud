@@ -16,4 +16,11 @@ FILE=/usr/local/bin/run-apache2.sh
 sed -i '/exec apache2/i\/usr/bin/memcached -d -m 64 -p 11211 -u www-data -l 127.0.0.1' $FILE
 sed -i '/exec apache2/i\chown www-data:www-data /var/www/nextcloud/data' $FILE
 sed -i '/exec apache2/i\chown www-data:www-data /var/www/nextcloud/config' $FILE
+sed -i '/exec apache2/i\service cron restart > /dev/null' $FILE
+
+## install cron task
+FILE=/etc/cron.d/nextcloud
+echo '*/15 * * * *   www-data   /usr/bin/php /var/www/nextcloud/cron.php' > $FILE
+
+
 
