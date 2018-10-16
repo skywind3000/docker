@@ -8,6 +8,8 @@ RUN run-parts --report --exit-on-error /tmp/build/script && rm -rf /tmp/build
 
 EXPOSE 443
 
+VOLUME ["/var/www/nextcloud/config", "/var/www/nextcloud/data"]
+
 CMD ["/usr/local/bin/run-apache2.sh"]
 
 
