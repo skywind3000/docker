@@ -10,6 +10,14 @@ EXPOSE 443
 
 VOLUME ["/var/www/nextcloud/config", "/var/www/nextcloud/data"]
 
+# enable url rewrite by changing config.php and add:
+#     'htaccess.RewriteBase' => '/',
+# below:
+#     'overwrite.cli.url' => '*****',
+# and add a slash '/' after the text of 'overwrite.cli.url', finally execute:
+#     nextcloud-update.sh
+
+
 CMD ["/usr/local/bin/run-apache2.sh"]
 
 
