@@ -8,7 +8,6 @@ RUN chmod -R 755 /tmp/build/script/*
 RUN run-parts --report --exit-on-error /tmp/build/script && rm -rf /tmp/build
 
 EXPOSE 443
-EXPOSE 442
 
 CMD ["/usr/local/bin/run-apache2.sh"]
 
