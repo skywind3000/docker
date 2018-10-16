@@ -6,14 +6,14 @@ set -x
 export DEBIAN_FRONTEND=noninteractive
 
 ## install packages
-apt-get install -y --no-install-recommends --auto-remove --purge php7.0-zip php-memcached bzip2 memcached
+packages="memcached"
+apt-get install -y --no-install-recommends --auto-remove --purge $packages
 
 ## enable apache modules
 a2enmod rewrite
 
 ## extract files
 cd /var/www
-echo "extracting nextcloud"
 tar -jvxf /tmp/nextcloud-latest.tar.bz2 > /dev/null
 chown -R www-data:www-data nextcloud
 

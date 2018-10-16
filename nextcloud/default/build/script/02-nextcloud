@@ -22,5 +22,17 @@ sed -i '/exec apache2/i\service cron restart > /dev/null' $FILE
 FILE=/etc/cron.d/nextcloud
 echo '*/15 * * * *   www-data   /usr/bin/php /var/www/nextcloud/cron.php' > $FILE
 
+## tune php.ini
+FILE=/etc/php/7.0/apache2/php.ini
+sed -i 's/^; log_errors/log_errors = On/' $FILE
+sed -i 's/^display_errors = Off/display_errors = On/' $FILE
+sed -i '/^display_errors = On/a\error_log = /var/log/apache2/php-error.log' $FILE
+sed -i 's/^;opcache.enable=0/opcache.enable=1/' $FILE
+sed -i 's/^;opcache.enable_cli=0/opcache.enable_cli=1/' $FILE
+sed -i 's/^;opcache.interned_strings_buffer=4/opcache.interned_strings_buffer=8/' $FILE
+
+
+## php modules
+phpenmod memcached
 
 
