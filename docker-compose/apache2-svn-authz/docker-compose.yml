@@ -2,13 +2,17 @@ version: "2"
 
 volumes:
     svn-data:
+    svn-backup:
 
 services:
     svn-auth:
         image: skywind3000/apache2-svn:authz
+        environment:
+            - SVN_BACKUP=""
         ports:
             - "443:443"
             - "442:442"
         volumes:
             - svn-data:/var/lib/svn
+            - svn-backup:/var/lib/backup
     
