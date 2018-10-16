@@ -18,10 +18,6 @@ sed -i '/exec bash/i\touch /var/lib/svn/conf/davsvn.passwd' $FILE
 sed -i '/exec bash/i\chown www-data:www-data /var/lib/svn/conf/davsvn.passwd' $FILE
 sed -i '/exec bash/i\service cron restart > /dev/null' $FILE
 
-## modify virtual host
-FILE=/etc/apache2/ports.conf
-# sed -i '/<IfModule ssl_module>/a\Listen 442' $FILE
-
 ## install cron task
 FILE=/etc/cron.d/svnback
 echo '0 4 * * 1-6  www-data   /usr/bin/python /var/lib/site/script/backup.py inc $(cat /var/lib/svn/backup.txt)' > $FILE
@@ -35,7 +31,11 @@ cat /var/lib/site/etc/svnauth.cron > /etc/cron.d/svnauth
 
 ## new site for account management
 cp /tmp/build/site/etc/svn-account.conf /etc/apache2/sites-available
+# cp /tmp/build/site/etc/apache2-svn.conf /etc/apache2/sites-available
 a2ensite svn-account
 
-## install account manager
+## install help script
+cp /tmp/build/init/svn-create.sh /usr/local/bin
+chmod 755 /usr/local/bin/svn-create.sh
+
 
