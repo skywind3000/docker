@@ -1,6 +1,6 @@
 ## 简单介绍
 
-SVN 服务启动起来简单，但是要有完善的权限管理就比较麻烦了，曾经花过两周的时间搭建了一套完善的 svn 服务，并编写了各种管理脚本，为了避免重复搭建，把之前的搭建经验股花到了 docker 镜像中。
+SVN 服务启动起来简单，但是要做到方便和完善就麻烦了。曾经花过数周的时间搭建了一套相对完善的 svn 服务，编写了各种管理脚本，为避免重复搭建，把之前的经验固化到 docker 镜像中。
 
 从而提供一个完善的，方便管理的，一键启动的 svn 服务：
 
@@ -52,12 +52,12 @@ services:
 docker-compose up -d
 ```
 
-即可启动服务，上面的各项配置代表什么呢？
+即可启动服务，各项配置含义如下：
 
 #### 端口映射：
 
 - 端口 443：提供 svn 服务，地址为 https://localhost/仓库名/路径
-- 端口 442：提供账户管理页面，地址为 https://localhost:442/reg
+- 端口 442：账户管理页面，地址为 https://localhost:442/reg
 
 #### 卷访问：
 
@@ -72,6 +72,15 @@ docker-compose up -d
 
 镜像内的 apache2 使用 Debian / Ubuntu 默认的 `www-data` 用户（uid=33）及 `www-data` 组（gid=33），如果外部宿主机需要通过 Volume 访问数据的话，需要手工创建 uid=33 的 `www-data` 用户，以及 gid=33 的 `www-data` 用户组。
 
+## 用户注册
+
+容器内的 `/var/lib/svn/conf/davsvn.passwd` 文件是一个 htpasswd 工具生成的账号密码数据库，我们的 davsvn 服务会用它来验证账号密码，该文件可以用 htpasswd 来创建账号或者修改密码，但是我们提供了页面来作这个事情：
+
+- https://localhost:442/reg： 用户注册页面
+- https://localhost:442/change： 密码修改页面
+- https://localhost:442/reset： 密码复位页面，需要提供 admin 用户的密码
+
+服务架设好以后，请首先使用第一个页面注册名为 `admin` 的用户，该用户有权限复位其他账号，以及访问所有仓库的 `/authz` 文件夹。
 
 ## 创建仓库
 
@@ -83,21 +92,13 @@ docker-compose exec svn-auth /bin/bash
 exit
 ```
 
-这样就创建了一个位于 `/var/lib/svn/repos` 下面，名字是 `test1` 的仓库。
+该脚本创建了一个位于 `/var/lib/svn/repos` 下，名为 `test1` 的仓库，并将所有者设为 `www-data`，再为该仓库自动提交了一个默认的 `/authz/access.ini` 的权限配置文件。
 
-## 手工创建
-
-不使用上面脚本的话，你也可以用 `svnadmin create` 手工创建：
+该脚本做的事情相当于在容器内执行下面命令：
 
 ```bash
-docker-compose exec svn-auth /bin/bash
 cd /var/lib/svn/repos
 svnadmin create test1
-```
-
-然后为新仓库手工提交一个名为 `/authz/access.ini` 的文件：
-
-```bash
 mkdir -p /tmp/svntmp
 svn checkout file:///var/lib/svn/repos/test1 /tmp/svntmp/test1
 cd /tmp/svntmp/test1
@@ -106,28 +107,13 @@ echo "[/]" > authz/access.ini
 echo "* = r" >> authz/access.ini
 svn add authz
 svn commit -m "initialize authz/access.ini"
-
-```
-
-然后把仓库所有者设置成 www-data，并作些清理
-
-```bash
 chown -R www-data:www-data /var/lib/svn/repos/test1
 rm -rf /tmp/svntmp
 ```
 
-上面那个脚本就是作这些事情的。
+你也可以在宿主机上通过 volume 映射，手工创建仓库，注意文件所有者是 `www-data`。
 
 
-## 用户注册
-
-容器内的 `/var/lib/svn/conf/davsvn.passwd` 文件是一个 htpasswd 工具生成的账号密码数据库，我们的 davsvn 服务会用它来验证账号密码，该文件可以用 htpasswd 来创建账号或者修改密码，但是我们提供了页面来作这个事情：
-
-- https://localhost:442/reg： 用户注册页面
-- https://localhost:442/change： 密码修改页面
-- https://localhost:442/reset： 密码复位页面，需要提供 admin 用户的密码
-
-服务架设好以后，请首先使用第一个页面注册名为 `admin` 的用户，该用户有权限复位其他账号，以及访问所有仓库的 `/authz` 文件夹。
 
 ## 权限配置
 
