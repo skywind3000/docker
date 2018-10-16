@@ -13,7 +13,7 @@ chmod 755 /usr/local/bin/nextcloud-update.sh
 
 ## modify file
 FILE=/usr/local/bin/run-apache2.sh
-sed -i '/exec apache2/i\/usr/bin/memcached -d -m 128 -p 11211 -u www-data -l 127.0.0.1' $FILE
+sed -i '/exec apache2/i\/usr/bin/memcached -d -m 64 -p 11211 -u www-data -l 127.0.0.1' $FILE
 sed -i '/exec apache2/i\chown www-data:www-data /var/www/nextcloud/data' $FILE
 sed -i '/exec apache2/i\chown www-data:www-data /var/www/nextcloud/config' $FILE
 
