@@ -1,0 +1,160 @@
+<html>
+	<head>
+
+		<title>
+			{{ title }}
+		</title>
+<style>
+input {
+background-color: #fff;
+border: 1px solid #ccc;
+width: 240px;
+height: 24px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+-webkit-transition: border linear .2s,box-shadow linear .2s;
+-moz-transition: border linear .2s,box-shadow linear .2s;
+-o-transition: border linear .2s,box-shadow linear .2s;
+transition: border linear .2s,box-shadow linear .2s;
+}
+.modal{
+position: fixed;
+top: 20%;
+left: 50%;
+z-index: 1050;
+width: 400px;
+margin-left: -250px;
+background-color: #fff;
+border: 1px solid #999;
+border: 1px solid rgba(0,0,0,0.3);
+-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+border-radius: 6px;
+outline: 0;
+-webkit-box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+-moz-box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+-webkit-background-clip: padding-box;
+-moz-background-clip: padding-box;
+background-clip: padding-box;
+padding: 10px 50px 20px;
+}
+
+
+</style>
+	</head>
+
+	<body>
+	
+
+{% if msg %}
+<script>
+	alert("操作失败: {{ msg }}")
+</script>
+{% endif %}
+
+
+
+<div class="modal">
+<h1><strong>{{ title }}</strong></h1>
+
+{% if action == "reset" %}
+	<form action="./reset" method="post" class="form">	
+	<input type="hidden" name="action" value="reset"/>
+
+		<table>
+
+			<tr>
+				<td>管理员帐号:</td>
+				<td><input  type="text" name="admin_username" id="admin_username" value=""/></td>
+			</tr>
+			<tr>
+				<td> 管理员密码:</td>
+				<td><input type="password" name="admin_password" id="admin_password" value="" /></td>
+			</tr>
+			<tr>
+				<td>需要重置的帐号:</td>
+				<td><input  type="text" name="username" id="username" value=""/></td>
+			</tr>
+			<tr>
+				<td> 新密码:</td>
+				<td><input  type="password" name="pwd1" id="pwd1" value=""/></td>
+			</tr>
+			<tr>
+				<td> 再次输入新密码:</td>
+				<td><input  type="password" name="pwd2" id="pwd2" value=""/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><button type="submit">重置SVN密码</button></td>
+			</tr>		
+			<tr><td  colspan="2"><a href="./reg">SVN账号注册页面</a></td></tr>
+			<tr><td  colspan="2"><a href="./change">SVN修改密码页面</a></td></tr>
+		</table>
+		
+	</form>
+	
+{% elif action == "reg" %}
+	<form action="./reg" method="post" class="form">
+		<input type="hidden" name="action" value="reg">
+		
+		<table>
+
+			<tr>
+				<td >帐号:</td>
+				<td><input type="text" name="username" id="username" value=""/></td>
+			</tr>
+			<tr>
+				<td> 密码:</td>
+				<td><input type="password" name="pwd1" id="pwd1" value="" /></td>
+			</tr>
+			<tr>
+				<td> 再次输入密码:</td>
+				<td><input  type="password" name="pwd2" id="pwd2" value="" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><button>注册SVN帐号</button></td>
+			</tr>		
+			<tr><td  colspan="2"><a href="./reset">SVN重置密码页面</a></td></tr>
+			<tr><td  colspan="2"><a href="./change">SVN修改密码页面</a></td></tr>
+		</table>
+		
+	</form>
+	
+{% else %}
+	<form action="./change" method="post" class="form">
+	<input type="hidden" name="action" value="change">
+
+		<table>
+
+			<tr>
+				<td>帐号:</td>
+				<td><input  type="text" name="username" id="username" value=""/></td>
+			</tr>
+			<tr>
+				<td> 旧密码:</td>
+				<td><input type="password" name="pwdold" id="pwdold" value="" /></td>
+			</tr>
+			<tr>
+				<td> 新密码:</td>
+				<td><input  type="password" name="pwd1" id="pwd1" value=""/></td>
+			</tr>
+			<tr>
+				<td> 再次输入新密码:</td>
+				<td><input  type="password" name="pwd2" id="pwd2" value=""/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><button type="submit">修改SVN密码</button></td>
+			</tr>		
+		</table>
+		
+	</form>
+{% endif %}
+</div>
+
+</body>
+
+</html>

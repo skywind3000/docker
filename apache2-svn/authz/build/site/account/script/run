@@ -1,0 +1,4 @@
+#! /bin/sh
+cd /home/data/svn/web/account/script
+python start.py
+

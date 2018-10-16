@@ -1,0 +1,16 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import os
+import sys
+
+curpath = os.path.dirname(__file__)
+# apache默认在的/home/coco目录
+# 需要切换到当前目录
+os.chdir(curpath)
+# 需要把当前路径加入sys.path, 不然找不到下面的start文件
+sys.path.append(curpath)
+
+from start import app as application
+
+	
