@@ -6,5 +6,5 @@ export DEBIAN_FRONTEND=noninteractive
 
 
 rm -rf /etc/apache2/sites-enabled/*
-cp /tmp/build/etc/nextcloud.conf /etc/apache2/sites-enable
+cp /tmp/build/etc/nextcloud.conf /etc/apache2/sites-enabled/
 
