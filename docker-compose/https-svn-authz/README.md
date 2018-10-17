@@ -26,7 +26,7 @@ SVN 服务搭建起来简单，但想做好就很麻烦。曾花过数周的时�
 git pull skywind3000/apache2-svn:authz
 ```
 
-感兴趣还可以继续查看 [Dockerfile](/apache2-svn/authz/Dockerfile).
+感兴趣还可以继续查看 [Dockerfile](/apache2-svn/authz).
 
 ## 启动服务
 
