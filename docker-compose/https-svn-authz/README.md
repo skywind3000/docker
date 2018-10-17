@@ -26,6 +26,8 @@ SVN 服务搭建起来简单，但想做好就很麻烦。曾花过数周的时�
 git pull skywind3000/apache2-svn:authz
 ```
 
+感兴趣还可以继续查看 [Dockerfile](/apache2-svn/authz/Dockerfile).
+
 ## 启动服务
 
 按需修改本目录内的 docker-compose.yml 文件，比如：
@@ -145,6 +147,8 @@ user2 = rw
 ```
 
 这样镜像内的 crontab 服务会每隔五分钟扫描所有仓库的 `/authz/access.ini` 文件，有更改的话，就会整合生成最新的 `/var/lib/svn/conf/davsvn.authz` 文件，并且在 `/var/lib/svn/history` 下面保留一份备份。这样通过在各个仓库里提交最新的 access.ini ，等五分钟就会生效，权限配置错了回滚就行。
+
+最终生成 `davsvn.authz` 时，`/var/lib/svn/conf` 下面可以放一个 `davsvn.inc` 文件，该文件的内容会被最终生成 `davsvn.authz` 的时附着到文件尾部，做一些权限覆盖。
 
 通过在 access.ini 里赋予 admin 以外的用户对 `/authz` 文件夹的访问权限，可以让不同的人管理不同的仓库，不需要每次权限变更都由 admin 用户来处理。
 
