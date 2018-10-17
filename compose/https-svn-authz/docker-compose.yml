@@ -7,8 +7,9 @@ volumes:
 services:
     svn-auth:
         image: skywind3000/apache2-svn:authz
+	restart: always
         environment:
-            - SVN_BACKUP=""
+            - SVN_BACKUP=
         ports:
             - "443:443"
             - "442:442"
