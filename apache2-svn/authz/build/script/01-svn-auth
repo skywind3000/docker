@@ -9,14 +9,7 @@ packages=""
 
 ## modify scripts
 FILE=/usr/local/bin/run-apache2-svn.sh
-sed -i '/exec bash/i\mkdir -p /var/lib/backup 2> /dev/null' $FILE
-sed -i '/exec bash/i\mkdir -p /var/lib/svn/logs 2> /dev/null' $FILE
-sed -i '/exec bash/i\chown www-data:www-data /var/lib/backup' $FILE
-sed -i '/exec bash/i\chown www-data:www-data /var/lib/svn/logs' $FILE
-sed -i '/exec bash/i\echo "$SVN_BACKUP" > /var/lib/svn/backup.txt' $FILE
-sed -i '/exec bash/i\touch /var/lib/svn/conf/davsvn.passwd' $FILE
-sed -i '/exec bash/i\chown www-data:www-data /var/lib/svn/conf/davsvn.passwd' $FILE
-sed -i '/exec bash/i\service cron restart > /dev/null' $FILE
+sed -i '/exec bash/i\/bin/sh /var/lib/site/init.sh' $FILE
 
 ## install cron task
 FILE=/etc/cron.d/svnback
