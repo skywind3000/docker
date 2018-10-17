@@ -54,4 +54,4 @@ services:
 docker-compose up -d
 ```
 
-具体各项说明请见 docker-compose 的 [页面说明](https://github.com/skywind3000/docker/tree/master/docker-compose/https-svn-authz)。
+具体各项说明请见 docker-compose 的 [页面说明](https://github.com/skywind3000/docker/tree/master/compose/https-svn-authz)。
