@@ -16,7 +16,7 @@ if [ -n "$SVN_AUTOAUTH" ]; then
 	SCRIPT='/var/lib/site/script/svnauth.py'
 	CONFIG='/var/lib/site/etc/svnauth.json'
 	FILE='/etc/cron.d/svnauth'
-	echo "0/$SVN_AUTOAUTH * * * *   www-data   /var/bin/python $SCRIPT $CONFIG" > $FILE
+	echo "0/$SVN_AUTOAUTH * * * *   www-data   /usr/bin/python $SCRIPT $CONFIG" > $FILE
 fi
 
 if [ -n "$SVN_BACKUP" ]; then
