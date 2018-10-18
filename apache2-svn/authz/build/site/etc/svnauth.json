@@ -3,6 +3,7 @@
 	"history":"/var/lib/svn/history",
 	"source": "/var/lib/svn/repos",
 	"admin": ["admin"],
+	"validate": "/dev/shm/svnauthz",
 	"include": "/var/lib/svn/conf/davsvn.inc"
 }
 

@@ -715,6 +715,7 @@ def between(filename, start = 0, stop = -1):
 #----------------------------------------------------------------------
 _EXE_SVN = search_exe('svn' + (UNIX == 0 and '.exe' or ''))
 _EXE_SVNLOOK = search_exe('svnlook' + (UNIX == 0 and '.exe' or ''))
+_EXE_SVNAUTHZ = search_exe('svnauthz' + (UNIX == 0 and '.exe' or ''))
 
 def svn(args, shell = False, capture = False):
 	if not _EXE_SVN:
@@ -747,6 +748,16 @@ def svn_cat(url, username = None, password = None, revision = None):
 		sys.stderr.flush()
 		return None
 	return out
+
+def svnauthz(command, target, *args):
+	if not _EXE_SVNAUTHZ:
+		sys.stderr.write('not find svn in environ PATH')
+		return None
+	args = [ _EXE_SVNAUTHZ, command, target ] + list(args)
+	code, out, err = call(args)
+	if code != 0:
+		return err
+	return None
 
 def svnlook_youngest(repos):
 	result = svnlook(['youngest', repos], capture = True)

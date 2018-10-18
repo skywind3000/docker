@@ -14,6 +14,7 @@ class AuthzSvn (object):
 	def reset (self):
 		self.config = {}
 		self.names = []
+		self.tmpname = None
 	
 	def append (self, name, content):
 		if type(content) == type(u''):
@@ -31,6 +32,23 @@ class AuthzSvn (object):
 		self.config[name] = cp
 		self.names.append(name)
 		return 0
+
+	def validate (self, content, tmp = None):
+		if not tmp:
+			if sys.platform[:3] == 'win':
+				if 'TMP' in os.environ:
+					tmp = os.environ['TMP']
+				elif 'TEMP' in os.environ:
+					tmp = os.environ['TEMP']
+			else:
+				tmp = '/tmp'
+		if not self.tmpname:
+			tmp = os.path.abspath(tmp)
+			name = 'svnauthz.%02d'%(int(time.time() * 100) % 100)
+			self.tmpname = os.path.join(tmp, name)
+		with open(self.tmpname, 'wb') as fp:
+			fp.write(content)
+		return shell.svnauthz('validate', self.tmpname)
 
 	def generate (self):
 		import cStringIO
@@ -104,6 +122,7 @@ def AuthzMerge(jsoncfg):
 	include = config.get('include', None)
 	footer = config.get('footer', None)
 	admins = config.get('admin', None)
+	validate = config.get('validate', None)
 	if type(sources) != type([]):
 		return -3
 	for item in sources:
@@ -120,7 +139,11 @@ def AuthzMerge(jsoncfg):
 			return -7
 		text = shell.svnlook_cat(repos, filepath)
 		if text is not None:
-			if authz.append(name, text) != 0:
+			hr = authz.validate(text, validate)
+			if hr is not None:
+				print 'validation failed for %s in %s'%(filepath, repos)
+				print hr
+			elif authz.append(name, text) != 0:
 				print 'failed to parse %s in %s'%(filepath, repos)
 		else:
 			print 'failed to read %s in %s'%(filepath, repos)
@@ -242,11 +265,12 @@ if __name__ == '__main__':
 			"history":".",
 			"source": "/home/skywind/tmp/repos",
 			"admin": ["svnadmin", "skywind"],
-			"include": "svninc.txt",
-			"footer":"foot"
+			"validate": "/run/shm",
+			"include": "svninc.txt"
 		}
 		'''
 		AuthzMerge(cfg)
+		print 'test', shell.svnauthz('validate', 'svnout.auth')
 		return 0
 
 	# test5()

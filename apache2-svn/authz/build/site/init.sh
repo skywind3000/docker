@@ -10,6 +10,9 @@ chown www-data:www-data /var/lib/svn/logs
 touch /var/lib/svn/conf/davsvn.passwd
 chown www-data:www-data /var/lib/svn/conf/davsvn.passwd
 
+mkdir -p /dev/shm/svnauthz 2> /dev/null
+chown -R www-data:www-data /dev/shm/svnauthz
+
 rm -rf /etc/cron.d/*
 
 # install cron task for auto auth
