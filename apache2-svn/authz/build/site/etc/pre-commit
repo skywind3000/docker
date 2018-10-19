@@ -10,8 +10,8 @@ MAX_SIZE=10485760
 # Check log size
 LOGMSG=$($SVNLOOK log -t "$TXN" "$REPOS" | grep "[a-zA-Z0-9]" | wc -c)
 
-if [ "$LOGMSG" -lt 5  ]; then
-	echo "Log message cann't be empty ! you must input more than 5 chars as comment !" 1>&2
+if [ "$LOGMSG" -lt 10 ]; then
+	echo "Log message cann't be empty ! You must input more than 10 chars as comment !" 1>&2
 	exit 1
 fi
 
