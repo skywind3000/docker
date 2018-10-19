@@ -9,7 +9,7 @@ packages=""
 
 ## install init script
 FILE=/usr/local/bin/run-apache2-svn.sh
-sed -i '/exec bash/i\/bin/sh /var/lib/site/init.sh' $FILE
+sed -i '/exec bash/i\/bin/sh /var/lib/site/etc/init-svnauth.sh' $FILE
 
 ## install site scripts
 cp -r /tmp/build/site /var/lib/site
