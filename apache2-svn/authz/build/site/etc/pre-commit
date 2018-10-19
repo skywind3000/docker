@@ -22,8 +22,6 @@ files=$($SVNLOOK changed -t "$TXN" "$REPOS" | cut -d ' ' -f2- | sed -e 's/^[[:sp
 
 for f in $files; do
 
-	# echo "File: $f" 1>&2
-
 	# Check authz format
 	if [ "$f" = "authz/access.ini" ]; then
 		tmpname="/tmp/authz-svn.${RANDOM}"
@@ -38,7 +36,7 @@ for f in $files; do
 	fi
 
 	# Check file size
-	filesize=$($SVNLOOK cat -t "$TXN" "$REPOS" "$f" | wc -c)
+	filesize=$($SVNLOOK filesize -t "$TXN" "$REPOS" "$f")
 
 	if [ $filesize -gt $MAX_SIZE  ] ; then
 		echo "File $f is too large (must <= $MAX_SIZE)" 1>&2
