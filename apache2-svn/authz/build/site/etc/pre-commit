@@ -11,15 +11,18 @@ MAX_SIZE=10485760
 LOGMSG=$($SVNLOOK log -t "$TXN" "$REPOS" | grep "[a-zA-Z0-9]" | wc -c)
 
 if [ "$LOGMSG" -lt 5  ]; then
-	echo -e "Log message cann't be empty ! you must input more than 5 chars as comment !" 1>&2
+	echo "Log message cann't be empty ! you must input more than 5 chars as comment !" 1>&2
 	exit 1
 fi
 
 
 # Enumerate files
-files=$($SVNLOOK changed -t "$TXN" "$REPOS" | awk '{print $2}')
+IFS=$'\n'
+files=$($SVNLOOK changed -t "$TXN" "$REPOS" | cut -d ' ' -f2- | sed -e 's/^[[:space:]]*//')
 
 for f in $files; do
+
+	# echo "File: $f" 1>&2
 
 	# Check authz format
 	if [ "$f" = "authz/access.ini" ]; then
