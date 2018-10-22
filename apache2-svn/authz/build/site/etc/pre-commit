@@ -1,0 +1,51 @@
+#! /bin/bash
+
+REPOS="$1"
+TXN="$2"
+SVNLOOK=/usr/bin/svnlook
+SVNAUTHZ=/usr/bin/svnauthz
+MAX_SIZE=10485760
+
+
+# Check log size
+LOGMSG=$($SVNLOOK log -t "$TXN" "$REPOS" | grep "[a-zA-Z0-9]" | wc -c)
+
+if [ "$LOGMSG" -lt 10 ]; then
+	echo "Log message cann't be empty ! You must input more than 10 chars as comment !" 1>&2
+	exit 1
+fi
+
+
+# Enumerate files
+IFS=$'\n'
+files=$($SVNLOOK changed -t "$TXN" "$REPOS" | cut -d ' ' -f2- | sed -e 's/^[[:space:]]*//')
+
+for f in $files; do
+
+	# Check authz format
+	if [ "$f" = "authz/access.ini" ]; then
+		tmpname="/tmp/authz-svn.${RANDOM}"
+		$SVNLOOK cat -t "$TXN" "$REPOS" "$f" > "$tmpname"
+		$SVNAUTHZ validate "$tmpname"		
+		validate=$?
+		rm -rf "$tmpname"
+		if [ $validate -ne 0 ]; then
+			echo "Invalid content: $f, reject !" 1>&2
+			exit 1
+		fi
+	fi
+
+	# Check file size
+	filesize=$($SVNLOOK filesize -t "$TXN" "$REPOS" "$f")
+
+	if [ $filesize -gt $MAX_SIZE  ] ; then
+		echo "File $f is too large (must <= $MAX_SIZE)" 1>&2
+		exit 1
+	fi
+
+done
+
+exit 0
+
+
+

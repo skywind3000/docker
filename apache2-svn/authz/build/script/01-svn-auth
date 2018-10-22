@@ -7,23 +7,11 @@ export DEBIAN_FRONTEND=noninteractive
 packages=""
 # apt-get install -y --no-install-recommends --auto-remove --purge $packages
 
-## modify scripts
+## install init script
 FILE=/usr/local/bin/run-apache2-svn.sh
-sed -i '/exec bash/i\mkdir -p /var/lib/backup 2> /dev/null' $FILE
-sed -i '/exec bash/i\mkdir -p /var/lib/svn/logs 2> /dev/null' $FILE
-sed -i '/exec bash/i\chown www-data:www-data /var/lib/backup' $FILE
-sed -i '/exec bash/i\chown www-data:www-data /var/lib/svn/logs' $FILE
-sed -i '/exec bash/i\echo "$SVN_BACKUP" > /var/lib/svn/backup.txt' $FILE
-sed -i '/exec bash/i\touch /var/lib/svn/conf/davsvn.passwd' $FILE
-sed -i '/exec bash/i\chown www-data:www-data /var/lib/svn/conf/davsvn.passwd' $FILE
-sed -i '/exec bash/i\service cron restart > /dev/null' $FILE
+sed -i '/exec bash/i\/bin/sh /var/lib/site/etc/init-svnauth.sh' $FILE
 
-## install cron task
-FILE=/etc/cron.d/svnback
-echo '30 2 * * 1-6  www-data   /usr/bin/python /var/lib/site/script/backup.py inc $(cat /var/lib/svn/backup.txt)' > $FILE
-echo '30 2 * * 0    www-data   /usr/bin/python /var/lib/site/script/backup.py dump $(cat /var/lib/svn/backup.txt)' >> $FILE
-
-## install scripts
+## install site scripts
 cp -r /tmp/build/site /var/lib/site
 mkdir -p /var/lib/svn/logs 2> /dev/null
 chown -R www-data:www-data /var/lib/site/*

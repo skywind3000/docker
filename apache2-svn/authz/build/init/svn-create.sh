@@ -23,6 +23,8 @@ echo "Creating $NAME: "
 
 cd /var/lib/svn/repos
 svnadmin create "$NAME"
+cp /var/lib/site/etc/pre-commit "$NAME/hooks"
+chmod 755 "$NAME/hooks/pre-commit"
 chown -R www-data:www-data "$NAME"
 
 rm -rf /tmp/svntmp
