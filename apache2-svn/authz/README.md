@@ -33,21 +33,18 @@ git pull skywind3000/apache2-svn:authz
 按需修改本目录内的 docker-compose.yml 文件，比如：
 
 ```yaml
-version: "2"
-services:
-    svn-auth:
-        image: skywind3000/apache2-svn:authz
-        restart: always
-        environment:
-            SVN_BACKUP: "backup-password"
-            SVN_AUTOAUTH: "5"
-        ports:
-            - "443:443"
-            - "442:442"
-        volumes:
-            - /home/data/svn/data:/var/lib/svn
-            - /home/data/svn/backup:/var/lib/backup
-    
+svn-auth:
+    image: skywind3000/apache2-svn:authz
+    restart: always
+    environment:
+        SVN_BACKUP: "backup-password"
+        SVN_AUTOAUTH: "5"
+    ports:
+        - "443:443"
+        - "442:442"
+    volumes:
+        - ./data:/var/lib/svn
+        - ./backup:/var/lib/backup
 ```
 
 然后执行：

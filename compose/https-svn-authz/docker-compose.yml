@@ -1,20 +1,13 @@
-version: "2"
-
-volumes:
-    svn-data:
-    svn-backup:
-
-services:
-    svn-auth:
-        image: skywind3000/apache2-svn:authz
-	restart: always
-        environment:
-            SVN_BACKUP: "backup-password"
-            SVN_AUTOAUTH: "5"
-        ports:
-            - "443:443"
-            - "442:442"
-        volumes:
-            - svn-data:/var/lib/svn
-            - svn-backup:/var/lib/backup
+svn-auth:
+    image: skywind3000/apache2-svn:authz
+    restart: always
+    environment:
+        SVN_BACKUP: "backup-password"
+        SVN_AUTOAUTH: "5"
+    ports:
+        - "443:443"
+        - "442:442"
+    volumes:
+        - ./data:/var/lib/svn
+        - ./backup:/var/lib/backup
     
