@@ -9,7 +9,7 @@ services:
         image: skywind3000/apache2-svn:authz
 	restart: always
         environment:
-            - SVN_BACKUP=
+            - SVN_BACKUP="backup-password"
         ports:
             - "443:443"
             - "442:442"
