@@ -40,6 +40,7 @@ services:
         restart: always
         environment:
             - SVN_BACKUP="backup-password"
+            - SVN_AUTOAUTH="5"
         ports:
             - "443:443"
             - "442:442"

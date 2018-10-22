@@ -40,6 +40,7 @@ services:
         restart: always
         environment:
             - SVN_BACKUP="backup-password"
+            - SVN_AUTOAUTH="5"
         ports:
             - "443:443"
             - "442:442"
@@ -70,6 +71,7 @@ docker-compose up -d
 #### 环境变量：
 
 - SVN_BACKUP：非空字符串打开自动备份，字符串的内容就是仓库备份打包时的密码。
+- SVN_AUTOAUTH: 自动整合 davsvn.authz 的时间间隔，空的话将禁用 davsvn.authz 的自动生成。
 
 #### 用户权限：
 
@@ -137,7 +139,13 @@ user4 = rw
 
 ```
 
-这样所有权限写到一个配置中是很难维护并且修改很危险的。因此本镜像使用分离权限管理，每个仓库根目录下放一个 `/authz/access.ini` 文件，独立配置该仓库的权限，比如仓库 repos1 的权限配置文件：
+这样所有权限写到一个配置中是很难维护并且修改很危险的。因此本镜像使用分离权限管理，设置环境变量：
+
+```
+SVN_AUTOAUTH=5
+```
+
+将启用该功能，自动生成 `davsvn.authz` 文件，此时使用每个仓库根目录下的 `/authz/access.ini` 文件，独立配置该仓库的权限，比如仓库 repos1 的权限配置文件：
 
 ```ini
 [/]
