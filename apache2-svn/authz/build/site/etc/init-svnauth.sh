@@ -27,8 +27,10 @@ fi
 if [ -n "$SVN_BACKUP" ]; then
 	FILE='/etc/cron.d/svnback'
 	SCRIPT='/var/lib/site/script/backup.py'
-	echo "30 2 * * 1-6  www-data   /usr/bin/python $SCRIPT inc \"$SVN_BACKUP\"" > $FILE
-	echo "30 2 * * 0    www-data   /usr/bin/python $SCRIPT dump \"$SVN_BACKUP\"" >> $FILE
+	[ -n "$SVN_BACKUP_HOUR" ] && HOUR="$SVN_BACKUP_HOUR" || HOUR=2
+	[ -n "$SVN_BACKUP_MINUTE" ] && MINUTE=$SVN_BACKUP_MINUTE || MINUTE=30
+	echo "$MINUTE $HOUR * * 1-6  www-data   /usr/bin/python $SCRIPT inc \"$SVN_BACKUP\"" > $FILE
+	echo "$MINUTE $HOUR * * 0    www-data   /usr/bin/python $SCRIPT dump \"$SVN_BACKUP\"" >> $FILE
 fi
 
 service cron restart > /dev/null
