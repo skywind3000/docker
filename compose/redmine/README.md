@@ -33,6 +33,7 @@ DELIMITER ;
 然后是改变数据库的字符集和字符集合，再更新每个数据表的，执行脚本如下：
 
 ```sql
+use redmine;
 ALTER DATABASE redmine DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 CALL redmine.update_char_set();
 ```
