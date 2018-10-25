@@ -1,0 +1,21 @@
+redmine:
+    image: redmine
+    restart: always
+    ports:
+        - 8080:3000
+    volumes:
+        - ./data:/usr/src/redmine/files
+    links:
+        - db:db
+    environment:
+        REDMINE_DB_MYSQL: db
+        REDMINE_DB_PASSWORD: example
+
+db:
+    image: mysql:5.7
+    restart: always
+    volumes:
+        - ./mysql:/var/lib/mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: example
+        MYSQL_DATABASE: redmine
