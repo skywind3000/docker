@@ -8,7 +8,7 @@ gitlab:
     hostname: '608.tuohn.com'
     environment:
         GITLAB_OMNIBUS_CONFIG: |
-            external_url 'https://608.tuohn.com:443'
+            external_url 'https://608.tuohn.com'
             nginx['redirect_http_to_https'] = true
             letsencrypt['enable'] = false
             nginx['ssl_certificate'] = "/etc/gitlab/nginx.pem"
@@ -16,6 +16,7 @@ gitlab:
             # Add any other gitlab.rb configuration here, each on its own line
     ports:
         - 443:443
+        - 80:80
     volumes:
         - ./data:/var/opt/gitlab
         - ./logs:/var/log/gitlab
