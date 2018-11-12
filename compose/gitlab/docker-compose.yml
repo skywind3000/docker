@@ -11,8 +11,8 @@ services:
                 external_url 'https://608.tuohn.com:7583'
                 nginx['redirect_http_to_https'] = true
                 letsencrypt['enable'] = false
-                nginx['ssl_certificate'] = "/etc/gitlab/ssl/nginx.pem"
-                nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/nginx.key"
+                nginx['ssl_certificate'] = "/etc/gitlab/ssl.pem"
+                nginx['ssl_certificate_key'] = "/etc/gitlab/ssl.key"
                 # Add any other gitlab.rb configuration here, each on its own line
         ports:
             - 7583:7583
