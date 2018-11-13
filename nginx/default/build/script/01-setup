@@ -1,0 +1,13 @@
+#! /bin/sh
+
+set -x
+set -e
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get install -y --no-install-recommends --auto-remove --purge nginx
+
+mkdir -p /etc/nginx/ssl
+
+ln -s /etc/init.d/nginx /usr/local/etc/rc.d/S10-nginx
+ln -s /etc/init.d/nginx /usr/local/etc/rc.d/K10-nginx
+
