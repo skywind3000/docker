@@ -1,0 +1,8 @@
+#! /bin/sh
+
+set -e
+set -x
+
+mkdir -p /usr/local/tomcat/cert
+cp /tmp/build/etc/keystore /usr/local/tomcat/cert
+cat /tmp/build/etc/server.xml > /usr/local/tomcat/conf/server.xml

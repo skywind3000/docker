@@ -1,0 +1,8 @@
+gitbucket:
+    image: skywind3000/gitbucket:https
+    restart: always
+    ports:
+        - 7533:8080
+        - 7534:8443
+    volumes:
+        - ./data:/var/gitbucket
