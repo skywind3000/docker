@@ -10,3 +10,5 @@ cp /tmp/build/etc/initz.rc /usr/local/etc
 chmod 644 /usr/local/etc/initz.sh
 chmod 755 /usr/local/etc/initz.rc
 
+cp /tmp/build/bin/ensure_cert.sh /usr/local/bin
+chmod 755 /usr/local/bin/ensure_cert.sh
