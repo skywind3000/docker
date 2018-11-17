@@ -18,6 +18,7 @@ packages="$packages openssh-server rsyslog cron"
 ## install packages
 ##
 apt-get install -y --no-install-recommends --auto-remove --purge ${packages}
+rm -rf /var/lib/apt/lists/*
 
 ##
 ## configure locales
