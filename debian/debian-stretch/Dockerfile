@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:stretch
 MAINTAINER skywind3000 "https://github.com/skywind3000"
 
 COPY build /tmp/build
