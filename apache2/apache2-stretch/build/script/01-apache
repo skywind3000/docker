@@ -38,6 +38,7 @@ ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/K10-apache2
 # setup snakeoil
 FILE="/usr/local/etc/rc.d/I10-apache2"
 rm -rf /etc/ssl/certs/ssl-cert-snakeoil.*
+rm -rf /etc/ssl/private/ssl-cert-snakeoil.*
 echo "[ -e /etc/ssl/certs/ssl-cert-snakeoil.pem ] || make-ssl-cert generate-default-snakeoil" > $FILE
 
 
