@@ -40,6 +40,8 @@ ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/K10-apache2
 FILE="/usr/local/etc/rc.d/I10-apache2"
 rm -rf /etc/ssl/certs/ssl-cert-snakeoil.*
 rm -rf /etc/ssl/private/ssl-cert-snakeoil.*
-echo "[ -e /etc/ssl/certs/ssl-cert-snakeoil.pem ] || make-ssl-cert generate-default-snakeoil" > $FILE
+mkdir /etc/ssl/update
+echo "/usr/local/bin/ensure_cert.sh /etc/ssl/update/ssl-cert.pem /etc/ssl/update/ssl-cert.key" > $FILE
+echo "[ -e /etc/ssl/certs/ssl-cert-snakeoil.pem ] || make-ssl-cert generate-default-snakeoil" >> $FILE
 
 
