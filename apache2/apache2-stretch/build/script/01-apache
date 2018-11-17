@@ -32,5 +32,8 @@ apt-get install -y --no-install-recommends --auto-remove --purge ${packages}
 cp /tmp/build/init/run-apache2.sh /usr/local/bin/run-apache2.sh 
 chmod 755 /usr/local/bin/run-apache2.sh
 
+ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/S10-apache2
+ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/K10-apache2
+
 
 
