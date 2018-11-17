@@ -57,13 +57,17 @@ RUN { \
 VOLUME /var/lib/mysql
 # Config files
 COPY config/ /etc/mysql/
+COPY mysql.sh /etc/init.d
 COPY init-mysql.sh /usr/local/etc/rc.d/init-mysql.sh
 
 RUN \
 		set -ex; \
+		mv /etc/init.d/mysql.sh /etc/init.d/mysql; \
+		chmod 755 /etc/init.d/mysql; \
 		ln -s /etc/init.d/mysql /usr/local/etc/rc.d/S05-mysql; \
 		ln -s /etc/init.d/mysql /usr/local/etc/rc.d/K20-mysql; \
-		echo "/bin/bash /usr/local/etc/rc.d/init-mysql.sh mysqld" > /usr/local/etc/rc.d/I01-mysql; \
+		echo ". /etc/mysql/setup_password.sh" >> /usr/local/etc/rc.d/I01-mysql; \
+		echo "/bin/bash /usr/local/etc/rc.d/init-mysql.sh mysqld" >> /usr/local/etc/rc.d/I01-mysql; \
 		chmod 755 /usr/local/etc/rc.d/init-mysql.sh
 
 

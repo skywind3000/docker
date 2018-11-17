@@ -9,7 +9,7 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Start and stop the mysql database server daemon
-# Description:       Controls the main MariaDB database server daemon "mysqld"
+# Description:       Controls the main MySQL database server daemon "mysqld"
 #                    and its wrapper script "mysqld_safe".
 ### END INIT INFO
 #
@@ -33,7 +33,7 @@ if [ -f /etc/default/mysql ]; then
 fi
 
 # Also source default/mariadb in case the installation was upgraded from
-# packages originally installed from MariaDB.org repositories, which have
+# packages originally installed from MySQL.org repositories, which have
 # had support for reading /etc/default/mariadb since March 2016.
 if [ -f /etc/default/mariadb ]; then
   . /etc/default/mariadb
@@ -109,7 +109,7 @@ case "${1:-''}" in
   'start')
   sanity_checks;
   # Start daemon
-  log_daemon_msg "Starting MariaDB database server" "mysqld"
+  log_daemon_msg "Starting MySQL database server" "mysqld"
   if mysqld_status check_alive nowarn; then
    log_progress_msg "already running"
    log_end_msg 0
@@ -117,7 +117,7 @@ case "${1:-''}" in
     # Could be removed during boot
     test -e /var/run/mysqld || install -m 755 -o mysql -g root -d /var/run/mysqld
 
-    # Start MariaDB!
+    # Start MySQL!
     /usr/bin/mysqld_safe "${@:2}" 2>&1 >/dev/null | $ERR_LOGGER &
 
     for i in $(seq 1 "${MYSQLD_STARTUP_TIMEOUT:-30}"); do
@@ -128,7 +128,8 @@ case "${1:-''}" in
     if mysqld_status check_alive warn; then
       log_end_msg 0
       # Now start mysqlcheck or whatever the admin wants.
-      output=$(/etc/mysql/debian-start)
+      # output=$(/etc/mysql/debian-start)
+	  output=""
       if [ -n "$output" ]; then
         log_action_msg "$output"
       fi
@@ -144,7 +145,7 @@ case "${1:-''}" in
   # at least for cron, we can rely on it here, too. (although we have
   # to specify it explicit as e.g. sudo environments points to the normal
   # users home and not /root)
-  log_daemon_msg "Stopping MariaDB database server" "mysqld"
+  log_daemon_msg "Stopping MySQL database server" "mysqld"
   if ! mysqld_status check_dead nowarn; then
     set +e
     shutdown_out=`$MYADMIN shutdown 2>&1`; r=$?
@@ -152,7 +153,7 @@ case "${1:-''}" in
     if [ "$r" -ne 0 ]; then
       log_end_msg 1
       [ "$VERBOSE" != "no" ] && log_failure_msg "Error: $shutdown_out"
-      log_daemon_msg "Killing MariaDB database server by signal" "mysqld"
+      log_daemon_msg "Killing MySQL database server by signal" "mysqld"
       killall -15 mysqld
       server_down=
       for i in `seq 1 600`; do
@@ -165,7 +166,7 @@ case "${1:-''}" in
 
   if ! mysqld_status check_dead warn; then
     log_end_msg 1
-    log_failure_msg "Please stop MariaDB manually and read /usr/share/doc/mariadb-server-10.1/README.Debian.gz!"
+    log_failure_msg "Please stop MySQL manually and read /usr/share/doc/mariadb-server-10.1/README.Debian.gz!"
     exit -1
   else
     log_end_msg 0
@@ -179,7 +180,7 @@ case "${1:-''}" in
   ;;
 
   'reload'|'force-reload')
-  log_daemon_msg "Reloading MariaDB database server" "mysqld"
+  log_daemon_msg "Reloading MySQL database server" "mysqld"
   $MYADMIN reload
   log_end_msg 0
   ;;
@@ -188,7 +189,7 @@ case "${1:-''}" in
   if mysqld_status check_alive nowarn; then
     log_action_msg "$($MYADMIN version)"
   else
-    log_action_msg "MariaDB is stopped."
+    log_action_msg "MySQL is stopped."
     exit 3
   fi
   ;;
