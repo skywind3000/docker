@@ -7,12 +7,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends gnupg dirmngr
 
 # add gosu for easy step-down from root
 ENV GOSU_VERSION 1.7
+COPY gosu.bin /usr/local/bin/ 
 RUN set -x \
-	&& apt-get update && apt-get install -y --no-install-recommends ca-certificates wget \
-	&& wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-	&& wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-	&& export GNUPGHOME="$(mktemp -d)" \
-	&& rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
+	&& mv /usr/local/bin/gosu.bin /usr/local/bin/gosu \
 	&& chmod +x /usr/local/bin/gosu \
 	&& gosu nobody true 
 
@@ -64,10 +61,10 @@ COPY init-mysql.sh /usr/local/etc/rc.d/init-mysql.sh
 
 RUN \
 		set -ex; \
-		ln -s /etc/init.d/mysql /usr/local/etc/rc.d/05-mysql; \
-		ln -s /etc/init.d/mysql /usr/local/etc/rc.d/20-mysql; \
-		echo "/bin/bash /usr/local/etc/rc.d/init-mysql.sh" > /usr/local/etc/rc.d/I01-mysql; \
-		echo "finalize"
+		ln -s /etc/init.d/mysql /usr/local/etc/rc.d/S05-mysql; \
+		ln -s /etc/init.d/mysql /usr/local/etc/rc.d/K20-mysql; \
+		echo "/bin/bash /usr/local/etc/rc.d/init-mysql.sh mysqld" > /usr/local/etc/rc.d/I01-mysql; \
+		chmod 755 /usr/local/etc/rc.d/init-mysql.sh
 
 
 EXPOSE 3306 33060
