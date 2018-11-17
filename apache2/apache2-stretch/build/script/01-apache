@@ -5,6 +5,7 @@ set -x
 export DEBIAN_FRONTEND=noninteractive
 
 ## install packages
+apt-get update
 apt-get install -y --no-install-recommends --auto-remove --purge apache2 openssl ssl-cert
 
 echo "ServerName www.example.com" >> /etc/apache2/conf-available/servername.conf
