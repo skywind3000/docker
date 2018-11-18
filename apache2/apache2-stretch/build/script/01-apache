@@ -30,6 +30,7 @@ apt-get update
 apt-get install -y --no-install-recommends --auto-remove --purge ${packages}
 apt-get clean
 
+/usr/sbin/a2enmod rewrite
 
 # setup entry scrpit
 cp /tmp/build/init/run-apache2.sh /usr/local/bin/run-apache2.sh 
