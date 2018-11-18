@@ -31,6 +31,7 @@ apt-get install -y --no-install-recommends --auto-remove --purge ${packages}
 apt-get clean
 
 /usr/sbin/a2enmod rewrite
+/usr/sbin/a2ensite default-ssl
 
 # setup entry scrpit
 cp /tmp/build/init/run-apache2.sh /usr/local/bin/run-apache2.sh 
@@ -41,7 +42,8 @@ ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/K10-apache2
 
 # setup snakeoil
 FILE="/usr/local/etc/rc.d/I10-apache2"
-mkdir /etc/ssl/update
+/usr/local/bin/ensure_cert.sh
+
 echo "/bin/sh /usr/local/bin/ensure_cert.sh" > $FILE
 
 
