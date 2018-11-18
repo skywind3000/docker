@@ -1,4 +1,8 @@
 #! /bin/sh
 
-exec sh /usr/local/etc/initz.sh /usr/local/etc/rc.d keep $INIT_STOP_WAIT
+if [ "$1" = "execute" ]; then
+	exec sh /usr/local/etc/initz.sh /usr/local/etc/rc.d execute
+else
+	exec sh /usr/local/etc/initz.sh /usr/local/etc/rc.d keep $INIT_STOP_WAIT
+fi
 

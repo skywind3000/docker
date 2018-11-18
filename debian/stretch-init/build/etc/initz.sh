@@ -56,6 +56,25 @@ stop() {
 
 
 #----------------------------------------------------------------------
+# execute scripts
+#----------------------------------------------------------------------
+execute() {
+	if [ -d "$INITD" ]; then
+		echo "Executing initialization scripts"
+		for f in $INITD/I*; do
+			[ -e "$f" ] && . "$f"
+		done
+		for f in $INITD/E*; do
+			[ -x "$f" ] && "$f" start
+		done
+	else
+		echo "error: %s directory not found" 1>&2
+		exit 1
+	fi
+}
+
+
+#----------------------------------------------------------------------
 # restart service
 #----------------------------------------------------------------------
 restart() {
@@ -112,6 +131,9 @@ case "$CMD" in
 		;;
 	keep)
 		keep
+		;;
+	execute)
+		execute
 		;;
 	*)
 		_help
