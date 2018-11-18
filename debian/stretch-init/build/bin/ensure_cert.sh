@@ -11,9 +11,9 @@ create_ssl_cert() {
 }
 
 check_self() {
-	F1=/etc/ssl/self/ssl-cert.pem
-	F2=/etc/ssl/self/ssl-cert.key
-	[ -d /etc/ssl/self ] || mkdir -p /etc/ssl/self 2> /dev/null
+	F1=/etc/ssl/update/ssl-cert.pem
+	F2=/etc/ssl/update/ssl-cert.key
+	[ -d /etc/ssl/update ] || mkdir -p /etc/ssl/update 2> /dev/null
 	if [ -e "$F1" ] && [ -e "$F2" ]; then
 		return
 	fi
