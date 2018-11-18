@@ -4,6 +4,7 @@ set -e
 set -x
 
 mkdir -p /usr/local/etc/rc.d
+
 cp /tmp/build/etc/initz.sh /usr/local/etc
 cp /tmp/build/etc/initz.rc /usr/local/etc
 
