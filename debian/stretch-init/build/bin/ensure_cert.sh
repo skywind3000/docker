@@ -3,7 +3,7 @@
 
 create_ssl_cert() {
 	openssl req -new -x509 -days 36500 -nodes -out "$1" -keyout "$2" \
-			-subj "/C=US/CN=unknow/O=unknow" 
+			-subj "/C=US/CN=docker/O=docker.com" 
 	if [ -e "$2" ]; then
 		chmod 640 "$2" 2> /dev/null
 		chown root:ssl-cert "$2" 2> /dev/null
