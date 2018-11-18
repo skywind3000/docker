@@ -17,6 +17,7 @@ check_self() {
 	if [ -e "$F1" ] && [ -e "$F2" ]; then
 		return
 	fi
+	echo "Generate $F1"
 	create_ssl_cert "$F1" "$F2" 2> /dev/null
 }
 
@@ -27,7 +28,8 @@ check_snake() {
 		return
 	fi
 	if [ -x "/usr/sbin/make-ssl-cert" ]; then
-		/usr/sbin/make-ssl-cert generate-default-snakeoil
+		echo "Generate default snakeoil"
+		/usr/sbin/make-ssl-cert generate-default-snakeoil 2> /dev/null
 	fi
 }
 

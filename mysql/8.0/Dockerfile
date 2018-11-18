@@ -68,7 +68,8 @@ RUN \
 		ln -s /etc/init.d/mysql /usr/local/etc/rc.d/K20-mysql; \
 		echo ". /etc/mysql/setup_password.sh" >> /usr/local/etc/rc.d/I01-mysql; \
 		echo "/bin/bash /usr/local/etc/rc.d/init-mysql.sh mysqld" >> /usr/local/etc/rc.d/I01-mysql; \
-		chmod 755 /usr/local/etc/rc.d/init-mysql.sh
+		chmod 755 /usr/local/etc/rc.d/init-mysql.sh; \
+		apt-get clean
 
 
 EXPOSE 3306 33060

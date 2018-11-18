@@ -8,8 +8,8 @@ fi
 # Apache gets grumpy about PID files pre-existing
 rm -f /var/run/apache2/apache2*.pid
 
-# check certs
-[ -e /etc/ssl/certs/ssl-cert-snakeoil.pem ] || make-ssl-cert generate-default-snakeoil
+# run initialize scripts
+/bin/sh /usr/local/etc/initz.rc execute
 
 # start apache
 source /etc/apache2/envvars

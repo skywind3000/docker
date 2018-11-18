@@ -26,7 +26,9 @@ packages="$packages php7.0 php7.0-gd php7.0-json php7.0-mbstring php7.0-mcrypt p
 packages="$packages php7.0-mysql php7.0-sqlite3 php7.0-odbc php7.0-zip php7.0-bcmath php7.0-curl"
 packages="$packages php7.0-zip php7.0-fpm php-memcached php-apcu php-redis bzip2 memcached"
 
+apt-get update
 apt-get install -y --no-install-recommends --auto-remove --purge ${packages}
+apt-get clean
 
 
 # setup entry scrpit
@@ -38,10 +40,7 @@ ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/K10-apache2
 
 # setup snakeoil
 FILE="/usr/local/etc/rc.d/I10-apache2"
-rm -rf /etc/ssl/certs/ssl-cert-snakeoil.*
-rm -rf /etc/ssl/private/ssl-cert-snakeoil.*
 mkdir /etc/ssl/update
-echo "/usr/local/bin/ensure_cert.sh /etc/ssl/update/ssl-cert.pem /etc/ssl/update/ssl-cert.key" > $FILE
-echo "[ -e /etc/ssl/certs/ssl-cert-snakeoil.pem ] || make-ssl-cert generate-default-snakeoil" >> $FILE
+echo "/bin/sh /usr/local/bin/ensure_cert.sh" > $FILE
 
 
