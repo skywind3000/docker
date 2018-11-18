@@ -21,7 +21,7 @@ cp /tmp/build/etc/apache2-ssl.pem /etc/apache2/ssl
 
 
 ## install packages
-packages="libapache2-mod-php"
+packages="libapache2-mod-php git subversion"
 packages="$packages php7.0 php7.0-gd php7.0-json php7.0-mbstring php7.0-mcrypt php7.0-xml php7.0-cli"
 packages="$packages php7.0-mysql php7.0-sqlite3 php7.0-odbc php7.0-zip php7.0-bcmath php7.0-curl"
 packages="$packages php7.0-zip php7.0-fpm php-memcached php-apcu php-redis bzip2 memcached"
