@@ -1,0 +1,22 @@
+version: "2"
+
+networks:
+  gogs:
+    external: false
+
+services:
+  server:
+    image: gogs/gogs:latest
+    environment:
+      - USER_UID=33
+      - USER_GID=33
+    restart: always
+    networks:
+      - gogs
+    volumes:
+      - ./data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "3222:22"
