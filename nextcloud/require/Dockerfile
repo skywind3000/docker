@@ -1,4 +1,4 @@
-FROM skywind3000/apache2:stretch
+FROM skywind3000/apache2:buster
 MAINTAINER skywind3000 "https://github.com/skywind3000"
 
 COPY build /tmp/build
