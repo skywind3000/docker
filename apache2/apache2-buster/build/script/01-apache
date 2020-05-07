@@ -6,6 +6,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 ## install packages
 apt-get update
+apt-get upgrade -y
 apt-get install -y --no-install-recommends --auto-remove --purge apache2 openssl ssl-cert
 
 echo "ServerName www.example.com" >> /etc/apache2/conf-available/servername.conf
@@ -21,11 +22,15 @@ cp /tmp/build/etc/apache2-ssl.pem /etc/apache2/ssl
 
 
 ## install packages
-packages="libapache2-mod-php git subversion php-pear libmcrypt4"
-packages="$packages php7.3 php7.3-gd php7.3-json php7.3-mbstring php7.3-xml php7.3-cli"
-packages="$packages php7.3-mysql php7.3-sqlite3 php7.3-odbc php7.3-zip php7.3-bcmath php7.3-curl"
-packages="$packages php7.3-zip php7.3-fpm php-memcached php-apcu php-redis bzip2 memcached"
-packages="$packages php-intl php7.3-intl php7.3-imagick"
+packages="libapache2-mod-php git subversion php-pear libmcrypt4 php-lua php-luasandbox"
+packages="$packages php7.3 php-gd php-json php-mbstring php-xml php-cli php-readline"
+packages="$packages php-mysql php-sqlite3 php-odbc php-bcmath php-curl php-net-socket"
+packages="$packages php-zip php-fpm php-memcached php-apcu php-redis bzip2 memcached"
+packages="$packages php-intl php-imagick php-common php-cgi php-imap php-smbclient"
+packages="$packages php-ldap php-opcache php-msgpack php-uuid php-timer php-solr"
+packages="$packages php-mongodb php-xmlrpc php-pspell php-zend-code php-gettext"
+packages="$packages php-horde-mime php-mail-mime php-yaml php-bz2 php-ds phpqrcode"
+packages="$packages php-deepcopy"
 
 apt-get update
 apt-get install -y --no-install-recommends --auto-remove --purge ${packages}

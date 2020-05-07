@@ -18,6 +18,15 @@ if [ -n "$PGID" ]; then
 	groupmod -o -g "$PGID" www-data
 fi
 
+# run memcached
+if [ -n "$MEMCACHED_ENABLE" ]; then
+	/usr/bin/memcached -d \
+		-m "${MEMCACHED_MEM:-64}" \
+		-p "${MEMCACHED_PORT:-11211}" \
+		-u "${MEMCACHED_USER:-www-data}" \
+		-l "${MEMCACHED_HOST:-127.0.0.1}"
+fi
+
 # run initialize scripts
 /bin/sh /usr/local/etc/initz.rc execute
 
