@@ -1,0 +1,49 @@
+#! /bin/sh
+
+set -e
+set -x
+export DEBIAN_FRONTEND=noninteractive
+
+## install packages
+apt-get update
+apt-get install -y --no-install-recommends --auto-remove --purge apache2 openssl ssl-cert
+
+echo "ServerName www.example.com" >> /etc/apache2/conf-available/servername.conf
+/usr/sbin/a2enconf servername
+/usr/sbin/a2enmod ssl
+
+# make-ssl-cert generate-default-snakeoil
+
+mkdir -p /var/run/apache2 2> /dev/null
+mkdir -p /etc/apache2/ssl 2> /dev/null
+cp /tmp/build/etc/apache2-ssl.key /etc/apache2/ssl
+cp /tmp/build/etc/apache2-ssl.pem /etc/apache2/ssl
+
+
+## install packages
+packages="libapache2-mod-php git subversion php-pear"
+packages="$packages php7.3 php7.3-gd php7.3-json php7.3-mbstring php7.3-xml php7.3-cli"
+packages="$packages php7.3-mysql php7.3-sqlite3 php7.3-odbc php7.3-zip php7.3-bcmath php7.3-curl"
+packages="$packages php7.3-zip php7.3-fpm php-memcached php-apcu php-redis bzip2 memcached"
+
+apt-get update
+apt-get install -y --no-install-recommends --auto-remove --purge ${packages}
+apt-get clean
+
+/usr/sbin/a2enmod rewrite
+/usr/sbin/a2ensite default-ssl
+
+# setup entry scrpit
+cp /tmp/build/init/run-apache2.sh /usr/local/bin/run-apache2.sh 
+chmod 755 /usr/local/bin/run-apache2.sh
+
+ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/S10-apache2
+ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/K10-apache2
+
+# setup snakeoil
+FILE="/usr/local/etc/rc.d/I10-apache2"
+/usr/local/bin/ensure_cert.sh
+
+echo "/bin/sh /usr/local/bin/ensure_cert.sh" > $FILE
+
+

@@ -1,4 +1,4 @@
-FROM skywind3000/debian:stretch-init
+FROM skywind3000/debian:buster-init
 MAINTAINER skywind3000 "https://github.com/skywind3000"
 
 COPY build /tmp/build
