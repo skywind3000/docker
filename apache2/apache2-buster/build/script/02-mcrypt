@@ -1,0 +1,20 @@
+#! /bin/sh
+
+set -e
+set -x
+export DEBIAN_FRONTEND=noninteractive
+
+## init mcrypt
+cp /tmp/build/lib/mcrypt.so.lib /usr/lib/php/20180731/mcrypt.so
+chmod 755 /usr/lib/php/20180731/mcrypt.so
+
+## install module
+cd /etc/php/7.3/mods-available
+echo 'extension=mcrypt.so' > mcrypt.ini
+
+ln -s /etc/php/7.3/mods-available/mcrypt.ini /etc/php/7.3/cli/conf.d/20-mcrypt.ini
+ln -s /etc/php/7.3/mods-available/mcrypt.ini /etc/php/7.3/apache2/conf.d/20-mcrypt.ini
+ln -s /etc/php/7.3/mods-available/mcrypt.ini /etc/php/7.3/fpm/conf.d/20-mcrypt.ini
+
+# php -m
+
