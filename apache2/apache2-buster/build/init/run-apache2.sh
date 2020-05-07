@@ -8,6 +8,16 @@ fi
 # Apache gets grumpy about PID files pre-existing
 rm -f /var/run/apache2/apache2*.pid
 
+# change uid
+if [ -n "$PUID" ]; then
+	usermod -u "$PUID" www-data
+fi
+
+# change gid
+if [ -n "$PGID" ]; then
+	groupmod -g "$PGID" www-data
+fi
+
 # run initialize scripts
 /bin/sh /usr/local/etc/initz.rc execute
 

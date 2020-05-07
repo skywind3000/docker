@@ -21,7 +21,7 @@ sed -i '/exec apache2/i\/usr/local/bin/nextcloud-update.sh' $FILE
 
 ## install cron task
 FILE=/etc/cron.d/nextcloud
-echo '*/15 * * * *   www-data   /usr/bin/php /var/www/nextcloud/cron.php' > $FILE
+echo '*/5 * * * *   www-data   /usr/bin/php /var/www/nextcloud/cron.php' > $FILE
 
 ## tune php.ini
 FILE=/etc/php/7.3/apache2/php.ini
