@@ -10,12 +10,12 @@ rm -f /var/run/apache2/apache2*.pid
 
 # change uid
 if [ -n "$PUID" ]; then
-	usermod -u "$PUID" www-data
+	usermod -o -u "$PUID" www-data
 fi
 
 # change gid
 if [ -n "$PGID" ]; then
-	groupmod -g "$PGID" www-data
+	groupmod -o -g "$PGID" www-data
 fi
 
 # run initialize scripts
