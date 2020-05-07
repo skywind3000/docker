@@ -24,7 +24,7 @@ FILE=/etc/cron.d/nextcloud
 echo '*/15 * * * *   www-data   /usr/bin/php /var/www/nextcloud/cron.php' > $FILE
 
 ## tune php.ini
-FILE=/etc/php/7.0/apache2/php.ini
+FILE=/etc/php/7.3/apache2/php.ini
 sed -i 's/^; log_errors/log_errors = On/' $FILE
 sed -i 's/^display_errors = Off/display_errors = On/' $FILE
 sed -i '/^display_errors = On/a\error_log = /var/log/apache2/php-error.log' $FILE
@@ -36,4 +36,6 @@ sed -i 's/^;opcache.interned_strings_buffer=4/opcache.interned_strings_buffer=8/
 ## php modules
 phpenmod memcached
 
-
+## touch files
+touch /var/www/nextcloud/config/CAN_INSTALL
+chown www-data:www-data /var/www/nextcloud/config/CAN_INSTALL

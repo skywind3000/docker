@@ -1,4 +1,4 @@
-FROM skywind3000/nextcloud:require
+FROM skywind3000/nextcloud:buster-require
 MAINTAINER skywind3000 "https://github.com/skywind3000"
 
 COPY build /tmp/build
