@@ -32,7 +32,8 @@ docker-compose up -d
 
 ```php
 'overwrite.cli.url' => 'https://www.example.com/',
-'htaccess.RewriteBase' => '/',  ```
+'htaccess.RewriteBase' => '/',  
+```
 
 然后重启容器会自动生成 `.htaccess` 保证 url 重定向。
 
