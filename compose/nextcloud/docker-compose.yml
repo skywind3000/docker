@@ -1,5 +1,5 @@
 nextcloud:
-    image: skywind3000/nextcloud:default
+    image: skywind3000/nextcloud:buster
     restart: always
     ports:
         - 443:443
