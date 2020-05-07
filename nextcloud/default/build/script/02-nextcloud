@@ -31,11 +31,12 @@ sed -i '/^display_errors = On/a\error_log = /var/log/apache2/php-error.log' $FIL
 sed -i 's/^;opcache.enable=0/opcache.enable=1/' $FILE
 sed -i 's/^;opcache.enable_cli=0/opcache.enable_cli=1/' $FILE
 sed -i 's/^;opcache.interned_strings_buffer=4/opcache.interned_strings_buffer=8/' $FILE
+set -i 's/^memory_limit = 128M/memory_limit = 512M/' $FILE
 
 
 ## php modules
 phpenmod memcached
 
 ## touch files
-touch /var/www/nextcloud/config/CAN_INSTALL
+echo "HELLO" >> /var/www/nextcloud/config/CAN_INSTALL
 chown www-data:www-data /var/www/nextcloud/config/CAN_INSTALL
