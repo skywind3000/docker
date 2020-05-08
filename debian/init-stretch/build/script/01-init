@@ -11,5 +11,16 @@ cp /tmp/build/etc/initz.rc /usr/local/etc
 chmod 644 /usr/local/etc/initz.sh
 chmod 755 /usr/local/etc/initz.rc
 
+touch /usr/local/etc/rc.d/rc.init
+touch /usr/local/etc/rc.d/rc.local
+
+chmod 644 /usr/local/etc/rc.d/rc.init
+chmod 755 /usr/local/etc/rc.d/rc.local
+
+ln -s /usr/local/etc/rc.d/rc.init /usr/local/etc/rc.d/I00-init
+ln -s /usr/local/etc/rc.d/rc.local /usr/local/etc/rc.d/S99-local
+ln -s /usr/local/etc/rc.d/rc.local /usr/local/etc/rc.d/E99-local
+
 cp /tmp/build/bin/ensure_cert.sh /usr/local/bin
 chmod 755 /usr/local/bin/ensure_cert.sh
+

@@ -1,8 +1,40 @@
 #! /bin/sh
+# vim: set ts=4 sw=4 tw=0 et ft=sh :
 
 if [ "$1" = "execute" ]; then
+	if [ -e "/usr/local/etc/rc.d/rc.local" ]; then
+		. "/usr/local/etc/rc.d/rc.local"
+	fi
 	exec sh /usr/local/etc/initz.sh /usr/local/etc/rc.d execute
+elif [ "$1" = "install" ]; then
+	if [ -n "$2" ]; then
+		INIT_HOME="$2"
+        if ls $INIT_HOME/I* 1> /dev/null 2>&1; then
+            cp $INIT_HOME/I* /usr/local/etc/rc.d
+        fi
+        if ls $INIT_HOME/S* 1> /dev/null 2>&1; then
+            cp $INIT_HOME/S* /usr/local/etc/rc.d
+        fi
+        if ls $INIT_HOME/K* 1> /dev/null 2>&1; then
+            cp $INIT_HOME/K* /usr/local/etc/rc.d
+        fi
+        if [ -e "$INIT_HOME/rc.init" ]; then
+            echo "" >> /usr/local/etc/rc.d/rc.init
+            echo "# Append" >> /usr/local/etc/rc.d/rc.init
+            cat "$INIT_HOME/rc.init" >> /usr/local/etc/rc.d/rc.init
+        fi
+        if [ -e "$INIT_HOME/rc.local" ]; then
+            echo "" >> /usr/local/etc/rc.d/rc.local
+            echo "# Append" >> /usr/local/etc/rc.d/rc.local
+            cat "$INIT_HOME/rc.local" >> /usr/local/etc/rc.d/rc.local
+        fi
+	fi
 else
+	if [ -e "/usr/local/etc/rc.d/rc.local" ]; then
+		. "/usr/local/etc/rc.d/rc.local"
+	fi
 	exec sh /usr/local/etc/initz.sh /usr/local/etc/rc.d keep $INIT_STOP_WAIT
 fi
+
+
 

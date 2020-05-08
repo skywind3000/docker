@@ -39,11 +39,11 @@ apt-get clean
 cp /tmp/build/init/run-apache2.sh /usr/local/bin/run-apache2.sh 
 chmod 755 /usr/local/bin/run-apache2.sh
 
-ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/S10-apache2
-ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/K10-apache2
+ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/S20-apache2
+ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/K20-apache2
 
 # setup snakeoil
-FILE="/usr/local/etc/rc.d/I10-apache2"
+FILE="/usr/local/etc/rc.d/I20-apache2"
 /usr/local/bin/ensure_cert.sh
 
 echo "/bin/sh /usr/local/bin/ensure_cert.sh" > $FILE
