@@ -22,15 +22,11 @@ cp /tmp/build/etc/apache2-ssl.pem /etc/apache2/ssl
 
 
 ## install packages
-packages="libapache2-mod-php git subversion php-pear libmcrypt4 php-lua php-luasandbox"
-packages="$packages php7.3 php-gd php-json php-mbstring php-xml php-cli php-readline"
-packages="$packages php-mysql php-sqlite3 php-odbc php-bcmath php-curl php-net-socket"
+packages="libapache2-mod-php git subversion php-pear"
+packages="$packages php7.0 php-gd php-json php-mbstring php-xml php-cli"
+packages="$packages php-mysql php-sqlite3 php-odbc php-zip php-bcmath php-curl"
 packages="$packages php-zip php-fpm php-memcached php-apcu php-redis bzip2 memcached"
-packages="$packages php-intl php-imagick php-common php-cgi php-imap php-smbclient"
-packages="$packages php-ldap php-opcache php-msgpack php-uuid php-timer php-solr"
-packages="$packages php-mongodb php-xmlrpc php-pspell php-zend-code php-gettext"
-packages="$packages php-horde-mime php-mail-mime php-yaml php-bz2 php-ds phpqrcode"
-packages="$packages php-deepcopy"
+packages="$packages php-intl php-imagick php-yaml php-ds php-lua php-msgpack"
 
 apt-get update
 apt-get install -y --no-install-recommends --auto-remove --purge ${packages}
@@ -42,6 +38,12 @@ apt-get clean
 # setup entry scrpit
 cp /tmp/build/init/run-apache2.sh /usr/local/bin/run-apache2.sh 
 chmod 755 /usr/local/bin/run-apache2.sh
+
+# setup init scripts
+cp /tmp/build/init/I* /usr/local/etc/rc.d/
+cp /tmp/build/init/E* /usr/local/etc/rc.d/
+cp /tmp/build/init/S* /usr/local/etc/rc.d/
+cp /tmp/build/init/K* /usr/local/etc/rc.d/
 
 ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/S10-apache2
 ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/K10-apache2
