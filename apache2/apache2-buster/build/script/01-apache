@@ -39,12 +39,6 @@ apt-get clean
 cp /tmp/build/init/run-apache2.sh /usr/local/bin/run-apache2.sh 
 chmod 755 /usr/local/bin/run-apache2.sh
 
-# setup init scripts
-cp /tmp/build/init/I* /usr/local/etc/rc.d/
-cp /tmp/build/init/E* /usr/local/etc/rc.d/
-cp /tmp/build/init/S* /usr/local/etc/rc.d/
-cp /tmp/build/init/K* /usr/local/etc/rc.d/
-
 ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/S10-apache2
 ln -s /etc/init.d/apache2 /usr/local/etc/rc.d/K10-apache2
 
