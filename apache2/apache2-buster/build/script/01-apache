@@ -22,11 +22,11 @@ cp /tmp/build/etc/apache2-ssl.pem /etc/apache2/ssl
 
 
 ## install packages
-packages="libapache2-mod-php git subversion php-pear"
-packages="$packages php7.0 php-gd php-json php-mbstring php-xml php-cli"
+packages="libapache2-mod-php git subversion php-pear php-opcache"
+packages="$packages php php-gd php-json php-mbstring php-xml php-cli"
 packages="$packages php-mysql php-sqlite3 php-odbc php-zip php-bcmath php-curl"
 packages="$packages php-zip php-fpm php-memcached php-apcu php-redis bzip2 memcached"
-packages="$packages php-intl php-imagick php-yaml php-ds php-lua php-msgpack"
+packages="$packages php-intl php-imagick php-yaml php-ds libmcrypt4 php-msgpack php-mongodb"
 
 apt-get update
 apt-get install -y --no-install-recommends --auto-remove --purge ${packages}
@@ -34,6 +34,8 @@ apt-get clean
 
 /usr/sbin/a2enmod rewrite
 /usr/sbin/a2ensite default-ssl
+
+phpdismod lua
 
 # setup entry scrpit
 cp /tmp/build/init/run-apache2.sh /usr/local/bin/run-apache2.sh 
@@ -47,5 +49,8 @@ FILE="/usr/local/etc/rc.d/I20-apache2"
 /usr/local/bin/ensure_cert.sh
 
 echo "/bin/sh /usr/local/bin/ensure_cert.sh" > $FILE
+
+# copy init scripts
+/usr/local/etc/initz.rc install /tmp/build/init
 
 

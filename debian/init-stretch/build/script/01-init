@@ -4,6 +4,7 @@ set -e
 set -x
 
 mkdir -p /usr/local/etc/rc.d
+mkdir -p /usr/local/etc/rc.d/init.d
 
 cp /tmp/build/etc/initz.sh /usr/local/etc
 cp /tmp/build/etc/initz.rc /usr/local/etc
@@ -13,6 +14,12 @@ chmod 755 /usr/local/etc/initz.rc
 
 touch /usr/local/etc/rc.d/rc.init
 touch /usr/local/etc/rc.d/rc.local
+
+FILE="/usr/local/etc/rc.d/rc.init"
+echo "# It will be sourced by initz.sh" > $FILE
+echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" >> $FILE
+echo "export PATH" >> $FILE
+echo "" >> $FILE
 
 chmod 644 /usr/local/etc/rc.d/rc.init
 chmod 755 /usr/local/etc/rc.d/rc.local

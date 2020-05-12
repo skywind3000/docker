@@ -1,0 +1,12 @@
+# vim: set ts=4 sw=4 tw=78 noet ft=sh :
+
+# change uid
+if [ -n "$PUID" ]; then
+	usermod -o -u "$PUID" www-data
+fi
+
+# change gid
+if [ -n "$PGID" ]; then
+	groupmod -o -g "$PGID" www-data
+fi
+

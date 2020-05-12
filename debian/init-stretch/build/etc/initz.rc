@@ -9,15 +9,12 @@ if [ "$1" = "execute" ]; then
 elif [ "$1" = "install" ]; then
 	if [ -n "$2" ]; then
 		INIT_HOME="$2"
-        if ls $INIT_HOME/I* 1> /dev/null 2>&1; then
-            cp $INIT_HOME/I* /usr/local/etc/rc.d
-        fi
-        if ls $INIT_HOME/S* 1> /dev/null 2>&1; then
-            cp $INIT_HOME/S* /usr/local/etc/rc.d
-        fi
-        if ls $INIT_HOME/K* 1> /dev/null 2>&1; then
-            cp $INIT_HOME/K* /usr/local/etc/rc.d
-        fi
+		for f in $INIT_HOME/[ISKE]*; do
+            cp $f /usr/local/etc/rc.d/
+		done
+        for f in $INIT_HOME/init.d/*; do
+            cp $f /usr/local/etc/rc.d/init.d
+        done
         if [ -e "$INIT_HOME/rc.init" ]; then
             echo "" >> /usr/local/etc/rc.d/rc.init
             echo "# Append" >> /usr/local/etc/rc.d/rc.init

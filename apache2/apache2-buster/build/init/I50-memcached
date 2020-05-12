@@ -1,3 +1,11 @@
 #! /bin/sh
 
+# run memcached
+if [ -n "$MEMCACHED_ENABLE" ]; then
+	/usr/bin/memcached -d \
+		-m "${MEMCACHED_MEM:-64}" \
+		-p "${MEMCACHED_PORT:-11211}" \
+		-u "${MEMCACHED_USER:-www-data}" \
+		-l "${MEMCACHED_HOST:-127.0.0.1}"
+fi
 
