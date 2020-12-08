@@ -23,7 +23,7 @@ cp /tmp/build/etc/apache2-ssl.pem /etc/apache2/ssl
 
 ## install packages
 packages="libapache2-mod-php git subversion php-pear php-opcache"
-packages="$packages php php-gd php-json php-mbstring php-xml php-cli"
+packages="$packages php php-gd php-json php-mbstring php-xml php-cli php-gmp"
 packages="$packages php-mysql php-sqlite3 php-odbc php-zip php-bcmath php-curl"
 packages="$packages php-zip php-fpm php-memcached php-apcu php-redis bzip2 memcached"
 packages="$packages php-intl php-imagick php-yaml php-ds libmcrypt4 php-msgpack php-mongodb"
