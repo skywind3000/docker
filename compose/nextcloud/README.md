@@ -7,11 +7,12 @@
 
 ```yaml
 nextcloud:
-    image: skywind3000/nextcloud:default
+    image: skywind3000/nextcloud:buster
     restart: always
     ports:
         - 8543:443
     volumes:
+		- ./app:/var/www/nextcloud/app
         - ./data:/var/www/nextcloud/data
         - ./config:/var/www/nextcloud/config
 ```
@@ -48,4 +49,23 @@ docker-compose up -d
 ```
 
 重启容器即可。
+
+## 使用代理
+
+Nextcloud 的商店访问经常出问题，可以设定一个代理，编辑 `config/config.php` 加入：
+
+```php
+'proxy' => '172.16.0.200:1080',
+```
+
+或者：
+
+```php
+'proxy' => 'socks5://localhost:1080',
+```
+
+就能顺利访问商店了。
+
+
+
 
