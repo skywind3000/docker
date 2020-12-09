@@ -12,7 +12,7 @@ nextcloud:
     ports:
         - 8543:443
     volumes:
-		- ./app:/var/www/nextcloud/app
+		- ./apps:/var/www/nextcloud/apps
         - ./data:/var/www/nextcloud/data
         - ./config:/var/www/nextcloud/config
 ```
