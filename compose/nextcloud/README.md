@@ -1,6 +1,6 @@
 # Nextcloud
 
-- apache2 + php7.0
+- apache2 + php7.3
 - memcached 加速
 
 ## 启动文件
